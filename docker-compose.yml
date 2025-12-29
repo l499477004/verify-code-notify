@@ -1,0 +1,142 @@
+version: '3.8'
+
+services:
+  verify-code-notify:
+    # 服务名称
+    container_name: verify-code-notify
+    # 构建镜像
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # 端口映射，将容器内的9700端口映射到主机的9700端口
+    ports:
+      - "9700:9700"
+    # 环境变量配置，支持从.env文件加载
+    environment:
+      # 服务配置
+      - ALLOWED_TOKENS=${ALLOWED_TOKENS:-aAr#th;}11t.M^1SU8~6)R)71YTh9jsE
+      - PORT=${PORT:-9700}
+      - DEBUG=${DEBUG:-False}
+      
+      # 一言配置
+      - HITOKOTO=${HITOKOTO:-False}
+      
+      # Bark推送配置
+      - BARK_PUSH=${BARK_PUSH:-}
+      - BARK_ARCHIVE=${BARK_ARCHIVE:-}
+      - BARK_GROUP=${BARK_GROUP:-}
+      - BARK_SOUND=${BARK_SOUND:-}
+      - BARK_ICON=${BARK_ICON:-}
+      - BARK_LEVEL=${BARK_LEVEL:-}
+      - BARK_URL=${BARK_URL:-}
+      
+      # 控制台输出
+      - CONSOLE=${CONSOLE:-False}
+      
+      # 钉钉机器人配置
+      - DD_BOT_SECRET=${DD_BOT_SECRET:-}
+      - DD_BOT_TOKEN=${DD_BOT_TOKEN:-}
+      
+      # 飞书机器人配置
+      - FSKEY=${FSKEY:-}
+      
+      # Go-cqhttp配置
+      - GOBOT_URL=${GOBOT_URL:-}
+      - GOBOT_QQ=${GOBOT_QQ:-}
+      - GOBOT_TOKEN=${GOBOT_TOKEN:-}
+      
+      # Gotify配置
+      - GOTIFY_URL=${GOTIFY_URL:-}
+      - GOTIFY_TOKEN=${GOTIFY_TOKEN:-}
+      - GOTIFY_PRIORITY=${GOTIFY_PRIORITY:-0}
+      
+      # iGot配置
+      - IGOT_PUSH_KEY=${IGOT_PUSH_KEY:-}
+      
+      # Server酱配置
+      - PUSH_KEY=${PUSH_KEY:-}
+      
+      # PushDeer配置
+      - DEER_KEY=${DEER_KEY:-}
+      - DEER_URL=${DEER_URL:-}
+      
+      # Synology Chat配置
+      - CHAT_URL=${CHAT_URL:-}
+      - CHAT_TOKEN=${CHAT_TOKEN:-}
+      
+      # Push+配置
+      - PUSH_PLUS_TOKEN=${PUSH_PLUS_TOKEN:-}
+      - PUSH_PLUS_USER=${PUSH_PLUS_USER:-}
+      
+      # 微加机器人配置
+      - WE_PLUS_BOT_TOKEN=${WE_PLUS_BOT_TOKEN:-}
+      - WE_PLUS_BOT_RECEIVER=${WE_PLUS_BOT_RECEIVER:-}
+      - WE_PLUS_BOT_VERSION=${WE_PLUS_BOT_VERSION:-pro}
+      
+      # Qmsg配置
+      - QMSG_KEY=${QMSG_KEY:-}
+      - QMSG_TYPE=${QMSG_TYPE:-}
+      
+      # 企业微信配置
+      - QYWX_ORIGIN=${QYWX_ORIGIN:-}
+      - QYWX_AM=${QYWX_AM:-}
+      - QYWX_KEY=${QYWX_KEY:-}
+      
+      # Telegram配置
+      - TG_BOT_TOKEN=${TG_BOT_TOKEN:-}
+      - TG_USER_ID=${TG_USER_ID:-}
+      - TG_API_HOST=${TG_API_HOST:-}
+      - TG_PROXY_AUTH=${TG_PROXY_AUTH:-}
+      - TG_PROXY_HOST=${TG_PROXY_HOST:-}
+      - TG_PROXY_PORT=${TG_PROXY_PORT:-}
+      
+      # 智能微秘书配置
+      - AIBOTK_KEY=${AIBOTK_KEY:-}
+      - AIBOTK_TYPE=${AIBOTK_TYPE:-}
+      - AIBOTK_NAME=${AIBOTK_NAME:-}
+      
+      # SMTP邮件配置
+      - SMTP_SERVER=${SMTP_SERVER:-}
+      - SMTP_SSL=${SMTP_SSL:-false}
+      - SMTP_EMAIL=${SMTP_EMAIL:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - SMTP_NAME=${SMTP_NAME:-}
+      
+      # PushMe配置
+      - PUSHME_KEY=${PUSHME_KEY:-}
+      - PUSHME_URL=${PUSHME_URL:-}
+      
+      # Chronocat配置
+      - CHRONOCAT_QQ=${CHRONOCAT_QQ:-}
+      - CHRONOCAT_TOKEN=${CHRONOCAT_TOKEN:-}
+      - CHRONOCAT_URL=${CHRONOCAT_URL:-}
+      
+      # 自定义Webhook配置
+      - WEBHOOK_URL=${WEBHOOK_URL:-}
+      - WEBHOOK_BODY=${WEBHOOK_BODY:-}
+      - WEBHOOK_HEADERS=${WEBHOOK_HEADERS:-}
+      - WEBHOOK_METHOD=${WEBHOOK_METHOD:-}
+      - WEBHOOK_CONTENT_TYPE=${WEBHOOK_CONTENT_TYPE:-}
+      
+      # 时区设置
+      - TZ=Asia/Shanghai
+    # 日志配置
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"   # 单个日志文件最大10MB
+        max-file: "3"      # 最多保留3个日志文件
+    # 重启策略
+    restart: unless-stopped
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9700/health"]
+      interval: 30s       # 每30秒检查一次
+      timeout: 10s        # 检查超时时间10秒
+      retries: 3          # 连续失败3次视为不健康
+      start_period: 60s   # 启动后60秒开始检查
+
+# 网络配置
+networks:
+  default:
+    driver: bridge
