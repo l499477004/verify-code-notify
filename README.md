@@ -33,8 +33,8 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/yourusername/verify-code-notify.git
-git clone https://gitee.com/yourusername/verify-code-notify.git
+git clone https://github.com/l499477004/verify-code-notify.git
+git clone https://gitee.com/rainone/verify-code-notify.git
 cd verify-code-notify
 ```
 
@@ -487,9 +487,9 @@ MIT License
 
 ## 📞 联系方式
 
-- GitHub: https://github.com/yourusername/verify-code-notify
-- Gitee: https://gitee.com/yourusername/verify-code-notify
-- Issue: https://github.com/yourusername/verify-code-notify/issues
+- GitHub: https://github.com/l499477004/verify-code-notify
+- Gitee: https://gitee.com/rainone/verify-code-notify
+- Issue: https://github.com/l499477004/verify-code-notify/issues
 
 ## 📌 更新日志
 
